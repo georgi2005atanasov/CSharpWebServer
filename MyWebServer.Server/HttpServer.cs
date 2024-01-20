@@ -39,7 +39,7 @@
         {
             serverListener.Start();
 
-            Console.WriteLine($"Server started on port {port}...");
+            Console.WriteLine($"Server started on port {port}....");
             Console.WriteLine("Listening for requests...");
 
             while (true)
