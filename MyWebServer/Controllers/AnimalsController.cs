@@ -4,7 +4,6 @@ namespace MyWebServer.Controllers
     using MyWebServer.Server;
     using MyWebServer.Server.Controllers;
     using MyWebServer.Server.Http;
-    using MyWebServer.Server.Responses;
 
     public class AnimalsController : Controller
     {
@@ -15,23 +14,23 @@ namespace MyWebServer.Controllers
 
         public HttpResponse Cats()
         {
-            const string nameKey = "name";
+            const string nameKey = "Name";
             var query = this.Request.Query;
 
-            var catName = query.ContainsKey(nameKey)
-            ? query[nameKey]
+            var catName = query.ContainsKey(nameKey.ToLower())
+            ? query[nameKey.ToLower()]
             : "the cats";
 
-            return Html($"<h1>Hello from angry {catName}.</h1> ");
+            return Html($"<h1>Hello from {catName}.</h1> ");
         }
 
         public HttpResponse Dogs()
         {
-            const string nameKey = "name";
+            const string nameKey = "Name";
             var query = Request.Query;
 
-            var dogName = query.ContainsKey(nameKey)
-            ? query[nameKey]
+            var dogName = query.ContainsKey(nameKey.ToLower())
+            ? query[nameKey.ToLower()]
             : "the dogs";
 
             return Html($"<h1>Hello from {dogName}.</h1> ");

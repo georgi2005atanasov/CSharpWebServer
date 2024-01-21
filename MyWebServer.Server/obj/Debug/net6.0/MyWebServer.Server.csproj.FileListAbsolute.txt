@@ -10,3 +10,15 @@ C:\Users\Georgi\source\repos\MyWebServer.Server\obj\Debug\net6.0\MyWebServer.Ser
 C:\Users\Georgi\source\repos\MyWebServer.Server\obj\Debug\net6.0\refint\MyWebServer.Server.dll
 C:\Users\Georgi\source\repos\MyWebServer.Server\obj\Debug\net6.0\MyWebServer.Server.pdb
 C:\Users\Georgi\source\repos\MyWebServer.Server\obj\Debug\net6.0\ref\MyWebServer.Server.dll
+C:\Users\Georgi\Desktop\CSharpWebServer\MyWebServer.Server\bin\Debug\net6.0\MyWebServer.Server.deps.json
+C:\Users\Georgi\Desktop\CSharpWebServer\MyWebServer.Server\bin\Debug\net6.0\MyWebServer.Server.dll
+C:\Users\Georgi\Desktop\CSharpWebServer\MyWebServer.Server\bin\Debug\net6.0\MyWebServer.Server.pdb
+C:\Users\Georgi\Desktop\CSharpWebServer\MyWebServer.Server\obj\Debug\net6.0\MyWebServer.Server.csproj.AssemblyReference.cache
+C:\Users\Georgi\Desktop\CSharpWebServer\MyWebServer.Server\obj\Debug\net6.0\MyWebServer.Server.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Georgi\Desktop\CSharpWebServer\MyWebServer.Server\obj\Debug\net6.0\MyWebServer.Server.AssemblyInfoInputs.cache
+C:\Users\Georgi\Desktop\CSharpWebServer\MyWebServer.Server\obj\Debug\net6.0\MyWebServer.Server.AssemblyInfo.cs
+C:\Users\Georgi\Desktop\CSharpWebServer\MyWebServer.Server\obj\Debug\net6.0\MyWebServer.Server.csproj.CoreCompileInputs.cache
+C:\Users\Georgi\Desktop\CSharpWebServer\MyWebServer.Server\obj\Debug\net6.0\MyWebServer.Server.dll
+C:\Users\Georgi\Desktop\CSharpWebServer\MyWebServer.Server\obj\Debug\net6.0\refint\MyWebServer.Server.dll
+C:\Users\Georgi\Desktop\CSharpWebServer\MyWebServer.Server\obj\Debug\net6.0\MyWebServer.Server.pdb
+C:\Users\Georgi\Desktop\CSharpWebServer\MyWebServer.Server\obj\Debug\net6.0\ref\MyWebServer.Server.dll

@@ -60,7 +60,7 @@
             return query.Split("&")
                 .Select(part => part.Split("="))
                 .Where(part => part.Length == 2)
-                .ToDictionary(p => p.First(), p => p.Last());
+                .ToDictionary(p => p.First().ToLower(), p => p.Last());
         }
 
         private static HttpHeadersCollection ParseHeaders(List<string> headers)

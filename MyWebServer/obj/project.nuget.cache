@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "u0c5Z2tsgIMSiGBnq3h4o+8yz5m8x2QFnpRcJxAcfrVVsNhIcGofC4GNL9TLvbjTP5LE1nbwcfSA+dZb/BCiaQ==",
+  "dgSpecHash": "vPcs2GXFWoyp+u1XawAxWoXkXBuoUG495bbGi9wj51b002JsBGspH9GyQL7TWW8P0asGgMVZrHLY4EjYGLxo9A==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Georgi\\source\\repos\\MyWebServer\\MyWebServer.csproj",
+  "projectFilePath": "C:\\Users\\Georgi\\Desktop\\CSharpWebServer\\MyWebServer\\MyWebServer.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
