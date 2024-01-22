@@ -1,15 +1,16 @@
 ﻿namespace MyWebServer.Server
 {
+    using MyWebServer.Server.Common;
     using MyWebServer.Server.Http;
     using System.Text;
 
     public abstract class HttpResponse
     {
-        public HttpStatusCode StatusCode { get; set; }
+        public HttpStatusCode StatusCode { get; protected set; }
 
-        public HttpHeadersCollection Headers { get; set; } = new HttpHeadersCollection();
+        public HttpHeadersCollection Headers { get; protected set; } = new HttpHeadersCollection();
 
-        public string? Content { get; set; }
+        public string? Content { get; protected set; }
 
         public HttpResponse(HttpStatusCode statusCode)
         {
@@ -38,6 +39,19 @@
             }
 
             return result.ToString();
+        }
+
+        protected void PrepareContent(string content, string contentType)
+        {
+            Guard.AgainsNull(content, nameof(content));
+            Guard.AgainsNull(contentType, nameof(contentType));
+
+            var contentLength = Encoding.UTF8.GetByteCount(content).ToString();
+
+            Headers.Add("Content-Type", contentType);
+            Headers.Add("Content-Length", contentLength);
+
+            this.Content = content;
         }
     }
 }

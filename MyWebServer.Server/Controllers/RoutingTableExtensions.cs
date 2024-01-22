@@ -25,7 +25,7 @@ namespace MyWebServer.Server.Controllers
             Func<TController,
                 HttpResponse> controllerFunction)
             where TController : Controller
-        => routingTable.MapPost(path, request =>
+        =>  routingTable.MapPost(path, request =>
         controllerFunction(CreateController<TController>(request)));
 
         private static TController CreateController<TController>(HttpRequest request)

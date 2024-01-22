@@ -1,12 +1,7 @@
-﻿using MyWebServer.Server.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MyWebServer.Server.Responses
+﻿namespace MyWebServer.Server.Responses
 {
+    using MyWebServer.Server.Http;
+
     public class BadRequestResponse : HttpResponse
     {
         public BadRequestResponse() 

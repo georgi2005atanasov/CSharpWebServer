@@ -10,17 +10,13 @@ namespace MyWebServer.Server.Responses
 {
     public class ContentResponse : HttpResponse
     {
-        public ContentResponse(string text, string contentType)
+        public ContentResponse(string content, string contentType)
             : base(HttpStatusCode.OK)
         {
-            Guard.AgainsNull(text);
+            Guard.AgainsNull(content, nameof(content));
+            Guard.AgainsNull(contentType, nameof(contentType));
 
-            var contentLength = Encoding.UTF8.GetByteCount(text).ToString();
-
-            Headers.Add("Content-Type", contentType);
-            Headers.Add("Content-Length", contentLength);
-
-            this.Content = text;
+            PrepareContent(content, contentType);
         }
     }
 }

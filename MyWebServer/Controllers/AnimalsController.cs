@@ -7,7 +7,7 @@ namespace MyWebServer.Controllers
 
     public class AnimalsController : Controller
     {
-        public AnimalsController(HttpRequest request) 
+        public AnimalsController(HttpRequest request)
             : base(request)
         {
         }
@@ -24,16 +24,8 @@ namespace MyWebServer.Controllers
             return Html($"<h1>Hello from {catName}.</h1> ");
         }
 
-        public HttpResponse Dogs()
-        {
-            const string nameKey = "Name";
-            var query = Request.Query;
-
-            var dogName = query.ContainsKey(nameKey.ToLower())
-            ? query[nameKey.ToLower()]
-            : "the dogs";
-
-            return Html($"<h1>Hello from {dogName}.</h1> ");
-        }
+        public HttpResponse Dogs() => View();
+        public HttpResponse Bunnies() => View("Rabbits");
+        public HttpResponse Turtles() => View("Animals/Wild/Turtles");
     }
 }

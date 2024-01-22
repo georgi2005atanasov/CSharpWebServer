@@ -31,6 +31,7 @@
         {
             Guard.AgainsNull(path, nameof(path));
             Guard.AgainsNull(responseFunction, nameof(responseFunction));
+            Guard.AgainsNull(method, nameof(method));
 
             this.routes[method][path] = responseFunction;
 
