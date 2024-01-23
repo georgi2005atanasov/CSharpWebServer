@@ -1,6 +1,7 @@
 ﻿
 namespace MyWebServer.Controllers
 {
+    using MyWebServer.Models.Animals;
     using MyWebServer.Server;
     using MyWebServer.Server.Controllers;
     using MyWebServer.Server.Http;
@@ -15,13 +16,24 @@ namespace MyWebServer.Controllers
         public HttpResponse Cats()
         {
             const string nameKey = "Name";
+            const string ageKey = "Age";
             var query = this.Request.Query;
 
             var catName = query.Contains(nameKey.ToLower())
             ? query[nameKey.ToLower()]
             : "the cats";
 
-            return Html($"<h1>Hello from {catName}.</h1> ");
+            var catAge = query.Contains(ageKey.ToLower())
+                ? int.Parse(query[ageKey.ToLower()])
+                : 0;
+
+            var viewModel = new CatViewModel
+            {
+                Name = catName,
+                Age = catAge
+            };
+
+            return View(viewModel);
         }
 
         public HttpResponse Dogs() => View();

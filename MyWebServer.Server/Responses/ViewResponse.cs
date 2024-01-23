@@ -7,13 +7,13 @@ namespace MyWebServer.Server.Responses
     {
         private const char PathSeparator = '/';
 
-        public ViewResponse(string filePath, string controllerName)
+        public ViewResponse(string filePath, string controllerName, object model)
             : base(HttpStatusCode.OK)
         {
-            this.GetHtml(filePath, controllerName);
+            this.GetHtml(filePath, controllerName, model);
         }
 
-        private void GetHtml(string viewName, string controllerName)
+        private void GetHtml(string viewName, string controllerName, object model)
         {
             if (!viewName.Contains(PathSeparator))
             {
@@ -30,6 +30,11 @@ namespace MyWebServer.Server.Responses
 
             var viewContent = File.ReadAllText(viewPath);
 
+            if (model != null)
+            {
+                viewContent = PopulateModel(viewContent, model);
+            }
+
             this.PrepareContent(viewContent, HttpContentType.HtmlText);
         }
 
@@ -39,6 +44,29 @@ namespace MyWebServer.Server.Responses
             var errorMessage = $"View '{viewPath}' was not found.";
 
             this.PrepareContent(errorMessage, HttpContentType.PlainText);
+        }
+
+        private string PopulateModel(string viewContent, object model)
+        {
+            var data = model
+                .GetType()
+                .GetProperties()
+                .Select(pr => new
+                {
+                    Name = pr.Name,
+                    Value = pr.GetValue(model)
+                });
+
+            const string openingBrackets = "{{";
+            const string closingBrackets = "}}";
+
+            foreach (var entry in data)
+            {
+                var currValue = entry.Value?.ToString();
+                viewContent = viewContent.Replace($"{openingBrackets}{entry.Name}{closingBrackets}", currValue);
+            }
+
+            return viewContent;
         }
     }
 }
