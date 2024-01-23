@@ -17,7 +17,7 @@ namespace MyWebServer.Controllers
             const string nameKey = "Name";
             var query = this.Request.Query;
 
-            var catName = query.ContainsKey(nameKey.ToLower())
+            var catName = query.Contains(nameKey.ToLower())
             ? query[nameKey.ToLower()]
             : "the cats";
 

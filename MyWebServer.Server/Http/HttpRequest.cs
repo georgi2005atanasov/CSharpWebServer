@@ -12,9 +12,9 @@
 
         public string? Path { get; private set; }
 
-        public IReadOnlyDictionary<string, string>? Query { get; private set; }
+        public HttpQueryCollection? Query { get; private set; }
 
-        public IReadOnlyDictionary<string, string> Form { get; private set; }
+        public HttpFormCollection? Form { get; private set; }
 
         public HttpHeadersCollection Headers { get; private set; } = new HttpHeadersCollection();
 
@@ -31,7 +31,7 @@
             var (path, query) = ParseUrl(url);
 
             var headersCollection = ParseHeaders(data.Skip(1).ToList());
-            
+
             var bodyLines = data.Skip(2 + headersCollection.Count).ToArray();
 
             var body = string.Join(Environment.NewLine, bodyLines);
@@ -49,38 +49,55 @@
             };
         }
 
-        private static Dictionary<string, string> ParseForm(HttpHeadersCollection headersCollection, string body)
+        private static HttpFormCollection ParseForm(HttpHeadersCollection headersCollection, string body)
         {
-            var result = new Dictionary<string, string>();
+            var result = new HttpFormCollection();
 
             if (headersCollection.Contains(HttpHeader.ContentType)
                 && headersCollection[HttpHeader.ContentType].Value == HttpContentType.FormUrlEncoded)
             {
-                result = ParseQuery(body);
+                var queryData = GetQueryData(body);
+
+                foreach (var queryPart in queryData)
+                {
+                    result.Add(queryPart[0], queryPart[1]);
+                }
             }
 
             return result;
         }
 
-        private static (string, Dictionary<string, string>) ParseUrl(string url)
+        private static (string, HttpQueryCollection) ParseUrl(string url)
         {
             var urlParts = url.Split('?', 2);
 
             var path = urlParts[0];
             var query = urlParts.Length == 2 ?
                 ParseQuery(urlParts[1]) :
-                new Dictionary<string, string>();
+                new HttpQueryCollection();
 
             return (path, query);
         }
 
-        private static Dictionary<string, string> ParseQuery(string query)
+        private static HttpQueryCollection ParseQuery(string query)
         {
-            return query.Split("&")
+            var queryCollection = new HttpQueryCollection();
+
+            var queryData = GetQueryData(query);
+
+            foreach (var queryPart in queryData)
+            {
+                queryCollection.Add(queryPart[0], queryPart[1]);
+            }
+
+            return queryCollection;
+        }
+
+        private static IEnumerable<string[]> GetQueryData(string query)
+            => query.Split("&")
                 .Select(part => part.Split("="))
                 .Where(part => part.Length == 2)
-                .ToDictionary(p => p.First().ToLower(), p => p.Last());
-        }
+                .ToList();
 
         private static HttpHeadersCollection ParseHeaders(List<string> headers)
         {
@@ -105,7 +122,7 @@
                 var headerValue = headers[i].Substring(indexOfColon + 1).Trim();
 
                 headersCollection.Add(headerName, headerValue);
-                
+
                 i++;
             }
 
