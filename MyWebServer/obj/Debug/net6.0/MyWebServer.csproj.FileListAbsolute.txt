@@ -37,3 +37,4 @@ C:\Users\Georgi\Desktop\CSharpWebServer\MyWebServer\obj\Debug\net6.0\ref\MyWebSe
 C:\Users\Georgi\Desktop\CSharpWebServer\MyWebServer\bin\Debug\net6.0\Views\Animals\Dogs.cshtml
 C:\Users\Georgi\Desktop\CSharpWebServer\MyWebServer\bin\Debug\net6.0\Views\Animals\Wild\Turtles.cshtml
 C:\Users\Georgi\Desktop\CSharpWebServer\MyWebServer\bin\Debug\net6.0\Views\Animals\Rabbits.cshtml
+C:\Users\Georgi\Desktop\CSharpWebServer\MyWebServer\bin\Debug\net6.0\Views\Cats\Create.cshtml

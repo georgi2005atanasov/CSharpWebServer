@@ -16,8 +16,8 @@
         {
             StatusCode = statusCode;
 
-            this.Headers.Add("Server", "My Web Server");
-            this.Headers.Add("Date", $"{DateTime.UtcNow:r}");
+            this.Headers.Add(HttpHeader.Server, "My Web Server");
+            this.Headers.Add(HttpHeader.Date, $"{DateTime.UtcNow:r}");
         }
 
         public override string ToString()
@@ -48,8 +48,8 @@
 
             var contentLength = Encoding.UTF8.GetByteCount(content).ToString();
 
-            Headers.Add("Content-Type", contentType);
-            Headers.Add("Content-Length", contentLength);
+            Headers.Add(HttpHeader.ContentType, contentType);
+            Headers.Add(HttpHeader.ContentLength, contentLength);
 
             this.Content = content;
         }

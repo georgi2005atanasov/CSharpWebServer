@@ -25,6 +25,20 @@
             headers.Add(header.Name, header);
         }
 
+        public bool Contains(string name) => headers.ContainsKey(name);
+
+        public HttpHeader Get(string name)
+        {
+            if (!this.Contains(name))
+            {
+                throw new InvalidOperationException($"Header with name '{name}' could not be found.");
+            }
+
+            return headers[name];
+        }
+
+        public HttpHeader this[string name] => headers[name];
+
         public IEnumerator<HttpHeader> GetEnumerator()
         {
             return headers.Values.GetEnumerator();

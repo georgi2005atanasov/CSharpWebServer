@@ -12,7 +12,9 @@
 
         public string? Path { get; private set; }
 
-        public Dictionary<string, string>? Query { get; private set; }
+        public IReadOnlyDictionary<string, string>? Query { get; private set; }
+
+        public IReadOnlyDictionary<string, string> Form { get; private set; }
 
         public HttpHeadersCollection Headers { get; private set; } = new HttpHeadersCollection();
 
@@ -31,7 +33,10 @@
             var headersCollection = ParseHeaders(data.Skip(1).ToList());
             
             var bodyLines = data.Skip(2 + headersCollection.Count).ToArray();
+
             var body = string.Join(Environment.NewLine, bodyLines);
+
+            var form = ParseForm(headersCollection, body);
 
             return new HttpRequest()
             {
@@ -39,8 +44,22 @@
                 Path = path,
                 Body = body,
                 Headers = headersCollection,
-                Query = query
+                Query = query,
+                Form = form
             };
+        }
+
+        private static Dictionary<string, string> ParseForm(HttpHeadersCollection headersCollection, string body)
+        {
+            var result = new Dictionary<string, string>();
+
+            if (headersCollection.Contains(HttpHeader.ContentType)
+                && headersCollection[HttpHeader.ContentType].Value == HttpContentType.FormUrlEncoded)
+            {
+                result = ParseQuery(body);
+            }
+
+            return result;
         }
 
         private static (string, Dictionary<string, string>) ParseUrl(string url)
