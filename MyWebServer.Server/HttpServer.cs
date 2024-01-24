@@ -50,16 +50,56 @@
 
                 var requestText = await ReadRequest(networkStream);
 
-                var request = HttpRequest.Parse(requestText);
+                try
+                {
+                    var request = HttpRequest.Parse(requestText);
 
-                Console.WriteLine(requestText);
+                    var response = this.routingTable.ExecuteRequest(request);
 
-                var response = this.routingTable.ExecuteRequest(request);
+                    this.PrepareSession(request, response);
 
-                await WriteResponse(networkStream, response);
+                    this.LogPipeline(request, response);
 
+                    await WriteResponse(networkStream, response);
+                }
+                catch (Exception err)
+                {
+                    await HandleError(networkStream, err);
+                }
+                
                 connection.Close();
             }
+        }
+
+        private void LogPipeline(HttpRequest request, HttpResponse response)
+        {
+            var separator = new string('-', 50);
+
+            var log = new StringBuilder();
+            log.AppendLine();
+            log.AppendLine(separator);
+            log.AppendLine("REQUEST:");
+            log.AppendLine(request.ToString());
+            log.AppendLine();
+            log.AppendLine("RESPONSE:");
+            log.AppendLine(response.ToString());
+            log.AppendLine();
+
+            Console.WriteLine(log.ToString());
+        }
+
+        private async Task HandleError(NetworkStream networkStream, Exception err)
+        {
+            var errorMessage = $"{err.Message} {Environment.NewLine} {err.StackTrace}";
+
+            var errorResponse = HttpResponse.ForError(errorMessage);
+
+            await WriteResponse(networkStream, errorResponse);
+        }
+
+        private void PrepareSession(HttpRequest request, HttpResponse response)
+        {
+            response.AddCookie(HttpSession.SessionCookieName, request.Session.Id);
         }
 
         private async Task<string> ReadRequest(NetworkStream networkStream)

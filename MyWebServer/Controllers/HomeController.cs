@@ -4,7 +4,6 @@ namespace MyWebServer.Controllers
     using MyWebServer.Server;
     using MyWebServer.Server.Controllers;
     using MyWebServer.Server.Http;
-    using MyWebServer.Server.Results;
 
     public class HomeController : Controller
     {
@@ -21,5 +20,8 @@ namespace MyWebServer.Controllers
 
         public HttpResponse ToSoftuni()
         => Redirect("https://softuni.bg");
+
+        public HttpResponse Error()
+        => throw new InvalidOperationException("Invalid action!");
     }
 }

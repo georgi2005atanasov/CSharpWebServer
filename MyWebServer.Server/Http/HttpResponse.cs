@@ -22,6 +22,12 @@
             this.AddHeader(HttpHeader.Date, $"{DateTime.UtcNow:r}");
         }
 
+        public static HttpResponse ForError(string message)
+            => new HttpResponse(HttpStatusCode.InternalServerError)
+            {
+                Content = message,
+            };
+
         public void AddHeader(string name, string value)
         {
             Guard.AgainsNull(name, nameof(name));

@@ -6,6 +6,8 @@
 
     public class HttpRequest
     {
+        private static HttpSessionsCollection Sessions = new HttpSessionsCollection();
+
         private const string NewLine = "\r\n";
 
         public HttpMethod Method { get; private set; }
@@ -19,6 +21,8 @@
         public HttpHeadersCollection Headers { get; private set; } = new HttpHeadersCollection();
 
         public HttpCookieCollection Cookies { get; private set; } = new HttpCookieCollection();
+
+        public HttpSession Session { get; private set; }
 
         public string? Body { get; private set; }
 
@@ -36,6 +40,8 @@
 
             var cookies = ParseCookies(headersCollection);
 
+            var session = GetSession(cookies);
+
             var bodyLines = data.Skip(2 + headersCollection.Count).ToArray();
 
             var body = string.Join(Environment.NewLine, bodyLines);
@@ -49,6 +55,7 @@
                 Body = body,
                 Headers = headersCollection,
                 Cookies = cookies,
+                Session = session,
                 Query = query,
                 Form = form
             };
@@ -158,6 +165,20 @@
             return cookieCollection;
         }
 
+        private static HttpSession GetSession(HttpCookieCollection cookies)
+        {
+            var sessionId = cookies.Contains(HttpSession.SessionCookieName)
+                ? cookies[HttpSession.SessionCookieName].Value
+                : Guid.NewGuid().ToString();
+
+            if (!Sessions.Contains(sessionId))
+            {
+                Sessions.Add(sessionId, new HttpSession(sessionId));
+            }
+
+            return Sessions[sessionId];
+        }
+
         private static HttpMethod ParseMethod(string method)
         {
             return method.ToUpper() switch
@@ -166,8 +187,15 @@
                 "POST" => HttpMethod.Post,
                 "PUT" => HttpMethod.Put,
                 "DELETE" => HttpMethod.Delete,
-                _ => HttpMethod.Get /*throw new InvalidOperationException($"Method {method} not supported.")*/
+                _ => throw new InvalidOperationException($"Method {method} not supported.")
             };
+        }
+
+        public override string ToString()
+        {
+            // TODO:
+            var info = "Session ID: " + Session.Id;
+            return info;
         }
     }
 }

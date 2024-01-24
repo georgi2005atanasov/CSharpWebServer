@@ -6,5 +6,6 @@
         BadRequest = 400,
         NotFound = 404,
         Found = 302,
+        InternalServerError = 500,
     }
 }
