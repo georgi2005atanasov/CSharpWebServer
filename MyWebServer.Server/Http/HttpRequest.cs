@@ -12,11 +12,13 @@
 
         public string? Path { get; private set; }
 
-        public HttpQueryCollection? Query { get; private set; }
+        public HttpQueryCollection? Query { get; private set; } = new HttpQueryCollection();
 
-        public HttpFormCollection? Form { get; private set; }
+        public HttpFormCollection? Form { get; private set; } = new HttpFormCollection();
 
         public HttpHeadersCollection Headers { get; private set; } = new HttpHeadersCollection();
+
+        public HttpCookieCollection Cookies { get; private set; } = new HttpCookieCollection();
 
         public string? Body { get; private set; }
 
@@ -32,6 +34,8 @@
 
             var headersCollection = ParseHeaders(data.Skip(1).ToList());
 
+            var cookies = ParseCookies(headersCollection);
+
             var bodyLines = data.Skip(2 + headersCollection.Count).ToArray();
 
             var body = string.Join(Environment.NewLine, bodyLines);
@@ -44,6 +48,7 @@
                 Path = path,
                 Body = body,
                 Headers = headersCollection,
+                Cookies = cookies,
                 Query = query,
                 Form = form
             };
@@ -129,6 +134,30 @@
             return headersCollection;
         }
 
+        private static HttpCookieCollection ParseCookies(HttpHeadersCollection headersCollection)
+        {
+            var cookieCollection = new HttpCookieCollection();
+
+            if (headersCollection.Contains(HttpHeader.Cookie))
+            {
+                var cookieHeader = headersCollection[HttpHeader.Cookie];
+
+                var allCookies = cookieHeader.Value.Split(";");
+
+                foreach (var cookie in allCookies)
+                {
+                    var cookieParts = cookie.Split("=");
+
+                    var cookieName = cookieParts[0].Trim();
+                    var cookieValue = cookieParts[1].Trim();
+
+                    cookieCollection.Add(cookieName, cookieValue);
+                }
+            }
+
+            return cookieCollection;
+        }
+
         private static HttpMethod ParseMethod(string method)
         {
             return method.ToUpper() switch
@@ -137,7 +166,7 @@
                 "POST" => HttpMethod.Post,
                 "PUT" => HttpMethod.Put,
                 "DELETE" => HttpMethod.Delete,
-                _ => throw new InvalidOperationException($"Method {method} not supported.")
+                _ => HttpMethod.Get /*throw new InvalidOperationException($"Method {method} not supported.")*/
             };
         }
     }

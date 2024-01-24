@@ -2,7 +2,6 @@
 {
     using MyWebServer.Server.Common;
     using MyWebServer.Server.Http;
-    using MyWebServer.Server.Responses;
     using System;
 
     public class RoutingTable : IRoutingTable
@@ -62,7 +61,7 @@
             if (!routes.ContainsKey(requestMethod)
                 || !routes[requestMethod].ContainsKey(requestPath))
             {
-                return new NotFoundResponse();
+                return new HttpResponse(HttpStatusCode.NotFound);
             }
 
             return routes[requestMethod][requestPath](request);

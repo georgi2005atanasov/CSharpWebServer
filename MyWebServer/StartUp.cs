@@ -16,6 +16,7 @@
                 .MapGet<AnimalsController>("/Turtles", c => c.Turtles())
                 .MapGet<AnimalsController>("/Bunnies", c => c.Bunnies())
                 .MapGet<CatsController>("/Cats/Create", c => c.Create())
+                .MapGet<AccountController>("/Cookies", c => c.ActionWithCookies())
                 .MapPost<CatsController>("/Cats/Save", c => c.Save()))
             .Start();
     }

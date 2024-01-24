@@ -21,7 +21,7 @@ namespace MyWebServer.Server.Http
 
         public void Add(string key, string value)
         {
-            query.Add(key, value);
+            query[key] = value;
         }
 
         public bool Contains(string name) => query.ContainsKey(name);

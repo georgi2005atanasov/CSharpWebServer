@@ -4,11 +4,13 @@
     using MyWebServer.Server.Http;
     using System.Text;
 
-    public abstract class HttpResponse
+    public class HttpResponse
     {
         public HttpStatusCode StatusCode { get; protected set; }
 
-        public HttpHeadersCollection Headers { get; protected set; } = new HttpHeadersCollection();
+        public HttpHeadersCollection Headers { get; set; } = new HttpHeadersCollection();
+
+        public HttpCookieCollection Cookies { get; private set; } = new HttpCookieCollection();
 
         public string? Content { get; protected set; }
 
@@ -16,8 +18,24 @@
         {
             StatusCode = statusCode;
 
-            this.Headers.Add(HttpHeader.Server, "My Web Server");
-            this.Headers.Add(HttpHeader.Date, $"{DateTime.UtcNow:r}");
+            this.AddHeader(HttpHeader.Server, "My Web Server");
+            this.AddHeader(HttpHeader.Date, $"{DateTime.UtcNow:r}");
+        }
+
+        public void AddHeader(string name, string value)
+        {
+            Guard.AgainsNull(name, nameof(name));
+            Guard.AgainsNull(value, nameof(value));
+
+            this.Headers.Add(name, value);
+        }
+
+        public void AddCookie(string name, string value)
+        {
+            Guard.AgainsNull(name, nameof(name));
+            Guard.AgainsNull(value, nameof(value));
+
+            this.Cookies.Add(name, value);
         }
 
         public override string ToString()
@@ -29,6 +47,11 @@
             foreach (var header in Headers)
             {
                 result.AppendLine(header.ToString());
+            }
+
+            foreach (var cookie in Cookies)
+            {
+                result.AppendLine($"{HttpHeader.SetCookie}: {cookie.ToString()}");
             }
 
             if (!string.IsNullOrEmpty(Content))
@@ -48,8 +71,8 @@
 
             var contentLength = Encoding.UTF8.GetByteCount(content).ToString();
 
-            Headers.Add(HttpHeader.ContentType, contentType);
-            Headers.Add(HttpHeader.ContentLength, contentLength);
+            AddHeader(HttpHeader.ContentType, contentType);
+            AddHeader(HttpHeader.ContentLength, contentLength);
 
             this.Content = content;
         }

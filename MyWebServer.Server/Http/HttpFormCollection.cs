@@ -21,7 +21,7 @@ namespace MyWebServer.Server.Http
 
         public void Add(string key, string value)
         {
-            form.Add(key, value);
+            form[key] = value;
         }
 
         public bool Contains(string name) => form.ContainsKey(name);

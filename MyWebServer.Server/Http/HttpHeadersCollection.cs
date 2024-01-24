@@ -22,7 +22,7 @@
         {
             var header = new HttpHeader(name, value);
 
-            headers.Add(header.Name, header);
+            headers[header.Name] = header;
         }
 
         public bool Contains(string name) => headers.ContainsKey(name);

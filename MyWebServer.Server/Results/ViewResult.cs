@@ -1,14 +1,14 @@
 ﻿
-namespace MyWebServer.Server.Responses
+namespace MyWebServer.Server.Results
 {
     using MyWebServer.Server.Http;
 
-    public class ViewResponse : HttpResponse
+    public class ViewResult : ActionResult
     {
         private const char PathSeparator = '/';
 
-        public ViewResponse(string filePath, string controllerName, object model)
-            : base(HttpStatusCode.OK)
+        public ViewResult(HttpResponse response, string filePath, string controllerName, object model)
+            : base(response)
         {
             this.GetHtml(filePath, controllerName, model);
         }
