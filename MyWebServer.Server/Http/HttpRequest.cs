@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Text;
 
     public class HttpRequest
     {
@@ -22,7 +23,7 @@
 
         public HttpCookieCollection Cookies { get; private set; } = new HttpCookieCollection();
 
-        public HttpSession Session { get; private set; }
+        public HttpSession? Session { get; private set; }
 
         public string? Body { get; private set; }
 
@@ -173,7 +174,7 @@
 
             if (!Sessions.Contains(sessionId))
             {
-                Sessions.Add(sessionId, new HttpSession(sessionId));
+                Sessions.Add(sessionId, new HttpSession(sessionId) { IsNew = true });
             }
 
             return Sessions[sessionId];
@@ -189,13 +190,6 @@
                 "DELETE" => HttpMethod.Delete,
                 _ => throw new InvalidOperationException($"Method {method} not supported.")
             };
-        }
-
-        public override string ToString()
-        {
-            // TODO:
-            var info = "Session ID: " + Session.Id;
-            return info;
         }
     }
 }

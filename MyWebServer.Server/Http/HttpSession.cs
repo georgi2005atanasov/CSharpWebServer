@@ -14,6 +14,8 @@ namespace MyWebServer.Server.Http
 
         private Dictionary<string, string> data { get; }
 
+        public bool IsNew { get; set; }
+
         public HttpSession(string id)
         {
             data = new();
