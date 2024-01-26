@@ -8,6 +8,7 @@
         static async Task Main()
             => await new HttpServer(
                 routes => routes
+                .MapStaticFiles()
                 .MapGet<AnimalsController>("/", c => c.Cats())
                 .MapGet<AnimalsController>("/Cats", c => c.Cats())
                 .MapGet<AnimalsController>("/Dogs", c => c.Dogs())
@@ -19,6 +20,7 @@
                 .MapGet<AccountController>("/Cookies", c => c.CookiesCheck())
                 .MapGet<AccountController>("/Session", c => c.SessionCheck())
                 .MapGet<HomeController>("/Error", c => c.Error())
+                .MapGet<HomeController>("/StaticFiles", c => c.StaticFiles())
                 .MapGet<AccountController>("/Login", c => c.Login())
                 .MapGet<AccountController>("/Logout", c => c.Logout())
                 .MapGet<AccountController>("/Authentication", c => c.AuthenticatedCheck())

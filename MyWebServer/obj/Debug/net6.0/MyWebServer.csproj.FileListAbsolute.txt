@@ -39,3 +39,8 @@ C:\Users\Georgi\Desktop\CSharpWebServer\MyWebServer\bin\Debug\net6.0\Views\Anima
 C:\Users\Georgi\Desktop\CSharpWebServer\MyWebServer\bin\Debug\net6.0\Views\Animals\Rabbits.cshtml
 C:\Users\Georgi\Desktop\CSharpWebServer\MyWebServer\bin\Debug\net6.0\Views\Cats\Create.cshtml
 C:\Users\Georgi\Desktop\CSharpWebServer\MyWebServer\bin\Debug\net6.0\Views\Animals\Cats.cshtml
+C:\Users\Georgi\Desktop\CSharpWebServer\MyWebServer\bin\Debug\net6.0\Views\Home\StaticFiles.cshtml
+C:\Users\Georgi\Desktop\CSharpWebServer\MyWebServer\bin\Debug\net6.0\wwwroot\css\styles.css
+C:\Users\Georgi\Desktop\CSharpWebServer\MyWebServer\bin\Debug\net6.0\wwwroot\js\Index.js
+C:\Users\Georgi\Desktop\CSharpWebServer\MyWebServer\bin\Debug\net6.0\wwwroot\img\cat.jpg
+C:\Users\Georgi\Desktop\CSharpWebServer\MyWebServer\bin\Debug\net6.0\wwwroot\favicon.ico

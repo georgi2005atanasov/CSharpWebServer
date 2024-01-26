@@ -35,7 +35,7 @@ namespace MyWebServer.Server.Results
                 viewContent = PopulateModel(viewContent, model);
             }
 
-            this.PrepareContent(viewContent, HttpContentType.HtmlText);
+            this.SetContent(viewContent, HttpContentType.HtmlText);
         }
 
         private void PrepareMissingViewError(string viewPath)
@@ -43,7 +43,7 @@ namespace MyWebServer.Server.Results
             this.StatusCode = HttpStatusCode.NotFound;
             var errorMessage = $"View '{viewPath}' was not found.";
 
-            this.PrepareContent(errorMessage, HttpContentType.PlainText);
+            this.SetContent(errorMessage, HttpContentType.PlainText);
         }
 
         private string PopulateModel(string viewContent, object model)
