@@ -22,6 +22,14 @@ namespace MyWebServer.Server.Http
 
         public bool ContainsKey(string key) => data.ContainsKey(key);
 
+        public void Remove(string key)
+        {
+            if (this.data.ContainsKey(key))
+            {
+                this.data.Remove(key);
+            }
+        }
+
         public string this[string key]
         {
             get => data[key];
