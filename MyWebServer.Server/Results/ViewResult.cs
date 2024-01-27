@@ -28,11 +28,24 @@ namespace MyWebServer.Server.Results
                 return;
             }
 
+
             var viewContent = File.ReadAllText(viewPath);
 
             if (model != null)
             {
                 viewContent = PopulateModel(viewContent, model);
+            }
+
+            var layoutPath = Path.GetFullPath("./Views/Layout.cshtml");
+
+            if (File.Exists(layoutPath))
+            {
+                var layoutContent = File.ReadAllText(layoutPath);
+
+                const string openingBrackets = "{{";
+                const string closingBrackets = "}}";
+
+                viewContent = layoutContent.Replace($"{openingBrackets}RenderBody(){closingBrackets}", viewContent);
             }
 
             this.SetContent(viewContent, HttpContentType.HtmlText);

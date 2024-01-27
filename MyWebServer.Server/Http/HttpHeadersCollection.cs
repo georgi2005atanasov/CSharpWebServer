@@ -7,7 +7,7 @@
 
         public HttpHeadersCollection()
         {
-            headers = new Dictionary<string, HttpHeader>();
+            headers = new Dictionary<string, HttpHeader>(StringComparer.InvariantCultureIgnoreCase);
         }
 
         public int Count

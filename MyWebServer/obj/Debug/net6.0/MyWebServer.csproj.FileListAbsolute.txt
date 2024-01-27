@@ -44,3 +44,5 @@ C:\Users\Georgi\Desktop\CSharpWebServer\MyWebServer\bin\Debug\net6.0\wwwroot\css
 C:\Users\Georgi\Desktop\CSharpWebServer\MyWebServer\bin\Debug\net6.0\wwwroot\js\Index.js
 C:\Users\Georgi\Desktop\CSharpWebServer\MyWebServer\bin\Debug\net6.0\wwwroot\img\cat.jpg
 C:\Users\Georgi\Desktop\CSharpWebServer\MyWebServer\bin\Debug\net6.0\wwwroot\favicon.ico
+C:\Users\Georgi\Desktop\CSharpWebServer\MyWebServer\bin\Debug\net6.0\Views\Layout.cshtml
+C:\Users\Georgi\Desktop\CSharpWebServer\MyWebServer\bin\Debug\net6.0\Views\Dogs\Create.cshtml

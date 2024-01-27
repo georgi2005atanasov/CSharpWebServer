@@ -16,12 +16,8 @@ namespace MyWebServer.Controllers
         public HttpResponse Create() => View();
 
         [HttpPost]
-        public HttpResponse Save()
+        public HttpResponse Save(string name, int age)
         {
-            var name = Request.Form["name"];
-
-            var age = Request.Form["age"];
-
             return Text($"{name} - {age}");
         }
     }

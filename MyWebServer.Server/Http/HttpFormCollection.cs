@@ -8,7 +8,7 @@ namespace MyWebServer.Server.Http
 
         public HttpFormCollection()
         {
-            form = new Dictionary<string, string>();
+            form = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
         }
 
         public int Count
@@ -44,6 +44,11 @@ namespace MyWebServer.Server.Http
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
+        }
+
+        public string GetValueOrDefault(string key)
+        {
+            return form.GetValueOrDefault(key);
         }
 
         public string this[string name] => form[name];

@@ -19,11 +19,11 @@ namespace MyWebServer.Controllers
             const string ageKey = "Age";
             var query = this.Request.Query;
 
-            var catName = query.Contains(nameKey.ToLower())
-            ? query[nameKey.ToLower()]
+            var catName = query.Contains(nameKey)
+            ? query[nameKey]
             : "the cats";
 
-            var catAge = query.Contains(ageKey.ToLower())
+            var catAge = query.Contains(ageKey)
                 ? int.Parse(query[ageKey.ToLower()])
                 : 0;
 

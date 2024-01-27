@@ -8,9 +8,9 @@ namespace MyWebServer.Server.Http
 
         public HttpQueryCollection()
         {
-            query = new Dictionary<string, string>();
+            query = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
         }
-
+        
         public int Count
         {
             get
@@ -44,6 +44,11 @@ namespace MyWebServer.Server.Http
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
+        }
+
+        public string GetValueOrDefault(string key)
+        {
+            return query.GetValueOrDefault(key);
         }
 
         public string this[string name] => query[name];

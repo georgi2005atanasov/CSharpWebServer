@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+    using System.Web;
 
     public class HttpRequest
     {
@@ -107,7 +108,8 @@
         }
 
         private static IEnumerable<string[]> GetQueryData(string query)
-            => query.Split("&")
+            => HttpUtility.UrlDecode(query)
+                .Split("&")
                 .Select(part => part.Split("="))
                 .Where(part => part.Length == 2)
                 .ToList();

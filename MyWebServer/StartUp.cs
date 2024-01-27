@@ -9,8 +9,7 @@
             => await new HttpServer(
                 routes => routes
                 .MapStaticFiles()
-                .MapControllers()
-                .MapPost<CatsController>("/Cats/Save", c => c.Save()))
+                .MapControllers())
             .Start();
     }
 }
