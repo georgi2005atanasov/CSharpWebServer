@@ -6,7 +6,7 @@
     using System.Runtime.CompilerServices;
     public abstract class Controller
     {
-        private const string UserSessionkey = "AuthenticatedUserId";
+        public const string UserSessionkey = "AuthenticatedUserId";
 
         protected Controller(HttpRequest request)
         {
