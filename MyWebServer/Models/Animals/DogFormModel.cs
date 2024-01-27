@@ -2,10 +2,10 @@
 {
     public class DogFormModel
     {
-        public string Name { get; set; }
+        public string Name { get; init; }
 
-        public string Age { get; set; }
+        public int Age { get; init; }
 
-        public string Breed { get; set; }
+        public string Breed { get; init; }
     }
 }
