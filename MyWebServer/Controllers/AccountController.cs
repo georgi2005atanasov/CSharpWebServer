@@ -56,8 +56,8 @@
                 return Text($"Cookies already exist - {cookie}");
             }
 
-            this.Response.AddCookie("My cookie", "My value");
-            this.Response.AddCookie("My second cookie", "My second value");
+            this.Response.Cookies.Add("My cookie", "My value");
+            this.Response.Cookies.Add("My second cookie", "My second value");
 
             return Text("Cookies set!");
         }

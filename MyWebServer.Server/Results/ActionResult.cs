@@ -1,4 +1,4 @@
-﻿using MyWebServer.Server.Http;
+﻿using MyWebServer.Server.Http.Collections;
 
 namespace MyWebServer.Server.Results
 {
@@ -17,7 +17,7 @@ namespace MyWebServer.Server.Results
         {
             foreach (var header in headers)
             {
-                AddHeader(header.Name, header.Value);
+                this.Headers.Add(header.Name, header.Value);
             }
         }
 
@@ -25,7 +25,7 @@ namespace MyWebServer.Server.Results
         {
             foreach (var cookie in cookies)
             {
-                AddCookie(cookie.Name, cookie.Value);
+                this.Cookies.Add(cookie.Name, cookie.Value);
             }
         }
     }

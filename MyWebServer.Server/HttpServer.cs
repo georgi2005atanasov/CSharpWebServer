@@ -104,7 +104,7 @@
         {
             if (request.Session.IsNew)
             {
-                response.AddCookie(HttpSession.SessionCookieName, request.Session.Id);
+                response.Cookies.Add(HttpSession.SessionCookieName, request.Session.Id);
                 request.Session.IsNew = false;
             }
         }

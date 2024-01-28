@@ -2,6 +2,7 @@
 {
     using MyWebServer.Server.Common;
     using MyWebServer.Server.Http;
+    using MyWebServer.Server.Http.Collections;
     using System.Text;
 
     public class HttpResponse
@@ -20,8 +21,8 @@
         {
             StatusCode = statusCode;
 
-            this.AddHeader(HttpHeader.Server, "My Web Server");
-            this.AddHeader(HttpHeader.Date, $"{DateTime.UtcNow:r}");
+            this.Headers.Add(HttpHeader.Server, "My Web Server");
+            this.Headers.Add(HttpHeader.Date, $"{DateTime.UtcNow:r}");
         }
 
         public HttpResponse SetContent(string content, string contentType)
@@ -31,8 +32,8 @@
 
             var contentLength = Encoding.UTF8.GetByteCount(content).ToString();
 
-            AddHeader(HttpHeader.ContentType, contentType);
-            AddHeader(HttpHeader.ContentLength, contentLength);
+            this.Headers.Add(HttpHeader.ContentType, contentType);
+            this.Headers.Add(HttpHeader.ContentLength, contentLength);
 
             this.Content = Encoding.UTF8.GetBytes(content);
 
@@ -44,8 +45,8 @@
             Guard.AgainsNull(content, nameof(content));
             Guard.AgainsNull(contentType, nameof(contentType));
 
-            AddHeader(HttpHeader.ContentType, contentType);
-            AddHeader(HttpHeader.ContentLength, content.Length.ToString());
+            this.Headers.Add(HttpHeader.ContentType, contentType);
+            this.Headers.Add(HttpHeader.ContentLength, content.Length.ToString());
 
             this.Content = content;
 
@@ -57,22 +58,6 @@
             {
                 Content = Encoding.UTF8.GetBytes(message),
             };
-
-        public void AddHeader(string name, string value)
-        {
-            Guard.AgainsNull(name, nameof(name));
-            Guard.AgainsNull(value, nameof(value));
-
-            this.Headers.Add(name, value);
-        }
-
-        public void AddCookie(string name, string value)
-        {
-            Guard.AgainsNull(name, nameof(name));
-            Guard.AgainsNull(value, nameof(value));
-
-            this.Cookies.Add(name, value);
-        }
 
         public override string ToString()
         {
