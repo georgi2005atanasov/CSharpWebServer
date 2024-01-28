@@ -2,6 +2,7 @@
 {
     using MyWebServer.Server.Http;
     using MyWebServer.Server.Routing;
+    using MyWebServer.Server.Services;
     using System;
     using System.Net;
     using System.Net.Sockets;
@@ -14,25 +15,49 @@
         private readonly TcpListener serverListener;
 
         private readonly RoutingTable routingTable;
+        private readonly ServiceCollection serviceCollection;
 
-        public HttpServer(string ipAddress, int port, Action<IRoutingTable> routingTableConfiguration)
+        private HttpServer(string ipAddress, int port, IRoutingTable routingTable)
         {
+            
             this.ipAddress = IPAddress.Parse(ipAddress);
             this.port = port;
+
             serverListener = new TcpListener(this.ipAddress, port);
-            routingTableConfiguration(this.routingTable = new RoutingTable());
+
+            this.routingTable = (RoutingTable)routingTable;
+
+            this.serviceCollection = new ServiceCollection();
         }
 
-        public HttpServer(int port, Action<IRoutingTable> routingTable)
+        private HttpServer(int port, IRoutingTable routingTable)
             : this("127.0.0.1", port, routingTable)
         {
 
         }
 
-        public HttpServer(Action<IRoutingTable> routingTable)
+        private HttpServer(IRoutingTable routingTable)
             : this(5000, routingTable)
         {
 
+        }
+
+        public static HttpServer WithRoutes(Action<IRoutingTable> routingTableConfiguration)
+        {
+            var routingTable = new RoutingTable();
+
+            var httpServer = new HttpServer(routingTable);
+
+            routingTableConfiguration(routingTable);
+
+            return httpServer;
+        }
+
+        public HttpServer WithServices(Action<IServiceCollection> serviceCollectionConfiguration)
+        {
+            serviceCollectionConfiguration(this.serviceCollection);
+
+            return this;
         }
 
         public async Task Start()
@@ -54,7 +79,7 @@
 
                     try
                     {
-                        var request = HttpRequest.Parse(requestText);
+                        var request = HttpRequest.Parse(requestText, this.serviceCollection);
 
                         var response = this.routingTable.ExecuteRequest(request);
 

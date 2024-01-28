@@ -2,7 +2,6 @@
 {
     using MyWebServer.Server;
     using MyWebServer.Server.Controllers;
-    using MyWebServer.Server.Http;
 
     public class AccountController : Controller
     {

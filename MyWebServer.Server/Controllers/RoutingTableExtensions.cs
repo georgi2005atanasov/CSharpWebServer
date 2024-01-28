@@ -99,7 +99,7 @@
 
         private static Controller CreateController(Type controllerType, HttpRequest request)
         {
-            var controller = (Controller)Activator.CreateInstance(controllerType);
+            var controller = (Controller)request.Services.CreateInstance(controllerType);
 
             controllerType?
                 .GetProperty("Request", BindingFlags.Instance | BindingFlags.NonPublic)?
