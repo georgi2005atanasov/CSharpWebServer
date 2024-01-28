@@ -9,7 +9,7 @@ namespace MyWebServer.Controllers
     {
         private readonly IData data;
 
-        public CatsController(IData data) 
+        public CatsController(IData data)
             => this.data = data;
 
         public HttpResponse All()
@@ -19,6 +19,27 @@ namespace MyWebServer.Controllers
                 .ToList();
 
             return View(cats);
+        }
+
+        public HttpResponse AllHtml()
+        {
+            var cats = this.data
+                .Cats
+                .ToList();
+
+            var result = "<h1> All cats in the system:</h1>";
+            result += "<ul>";
+
+            foreach (var cat in cats)
+            {
+                result += "<li>";
+                result += cat.Name + "-" + cat.Age;
+                result += "</li>";
+            }
+
+            result += "</ul>";
+
+            return Html(result);
         }
 
         [HttpGet]

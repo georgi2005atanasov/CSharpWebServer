@@ -86,7 +86,7 @@
                         this.PrepareSession(request, response);
 
                         this.LogPipeline(requestText, response.ToString());
-
+                       
                         await WriteResponse(networkStream, response);
                     }
                     catch (Exception err)
